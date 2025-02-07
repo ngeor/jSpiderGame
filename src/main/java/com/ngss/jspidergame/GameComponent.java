@@ -6,13 +6,11 @@
 
 package com.ngss.jspidergame;
 
-import javax.sound.sampled.*;
-import javax.swing.*;
-
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
-
+import javax.sound.sampled.*;
+import javax.swing.*;
 
 /**
  * @author ngeor
@@ -22,11 +20,13 @@ public class GameComponent extends JComponent {
     private Game game;
 
     private GameEntityMotionEvents geme = new GameEntityMotionEvents() {
+        @Override
         public void beforeMove(GameEntity ge) {
             Graphics g = getGraphics();
             eraseRect(g, ge);
         }
 
+        @Override
         public void afterMove(GameEntity ge) {
             Graphics g = getGraphics();
             ge.draw(g);
@@ -78,6 +78,7 @@ public class GameComponent extends JComponent {
         this.game = agame;
 
         game.addGameEvents(new GameEvents() {
+            @Override
             public void entityCreated(GameEntity ge) {
                 ge.addGameEntityMotionEvents(geme);
                 if (ge instanceof Bullet) {
@@ -85,6 +86,7 @@ public class GameComponent extends JComponent {
                 }
             }
 
+            @Override
             public void entityDestroyed(GameEntity ge) {
                 geme.beforeMove(ge);
                 if (ge instanceof Enemy) {
@@ -98,6 +100,7 @@ public class GameComponent extends JComponent {
                 }
             }
 
+            @Override
             public void spiderHit() {
                 game.setGameAlive(false);
                 System.out.println("One Live Less");
@@ -105,6 +108,7 @@ public class GameComponent extends JComponent {
                 repaint();
             }
 
+            @Override
             public void aliveChanged(boolean value) {
                 if (value) {
                     myTimer.start();
@@ -114,8 +118,8 @@ public class GameComponent extends JComponent {
                 }
             }
 
-            public void levelChanged(int value) {
-            }
+            @Override
+            public void levelChanged(int value) {}
         });
     }
 
@@ -190,5 +194,4 @@ public class GameComponent extends JComponent {
             System.err.println(ex.getMessage());
         }
     }
-
 }

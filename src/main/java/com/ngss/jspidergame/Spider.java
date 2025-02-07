@@ -29,9 +29,9 @@ public class Spider extends GameEntity {
         super(game, x, y, DIMENSION.width, DIMENSION.height);
     }
 
+    @Override
     public void draw(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillOval(this.x, this.y, this.width, this.height);
     }
-
 }
